@@ -47,6 +47,12 @@ export const outline_cog = `
 </svg>
 `;
 
+export const outline_cloud_upload = `
+<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+</svg>
+`;
+
 export const solid_mail = `
 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
   <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
@@ -69,6 +75,7 @@ export const svg_store = {
   outline_map: outline_map,
   outline_viewGridAdd: outline_viewGridAdd,
   outline_cog: outline_cog,
+  outline_cloud_upload: outline_cloud_upload,
   solid_mail: solid_mail,
   solid_phone: solid_phone,
 };

@@ -1,8 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { delay, map, Observable, of, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  delay,
+  map,
+  Observable,
+  of,
+  Subject,
+  tap,
+} from 'rxjs';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import {
   outline_calendar,
+  outline_cloud_upload,
   outline_cog,
   outline_home,
   outline_map,
@@ -17,6 +26,8 @@ interface NavElements {
   name: string;
   svg?: any;
 }
+
+// const defaultNav = 'Dashboard';
 
 type Tier = 'S' | 'A' | 'B' | 'C' | 'D';
 interface RecordCard {
@@ -216,6 +227,15 @@ const exampleRecords: RecordCard[] = [
   },
 ];
 
+const uploadCards: RecordCard[] = [
+  {
+    picture: '',
+    name: 'Stocks',
+    description: 'Nasdaq and NYSE',
+    tier: 'S',
+  },
+];
+
 type DetailTab = {
   id: string;
   data: string[];
@@ -275,6 +295,14 @@ const exampleDetailMetrics: Metric[] = [
   { key: 'Birthday', val: 'June 8, 1990' },
 ];
 
+const nasdaq_screener_url =
+  'https://www.nasdaq.com/market-activity/stocks/screener?exchange=';
+
+const uploadDetailMetric: Metric[] = [
+  { key: 'Nasdaq', val: nasdaq_screener_url + 'NASDAQ' },
+  { key: 'NYSE', val: nasdaq_screener_url + 'NYSE' },
+];
+
 /** could evolve */
 type RecordDetailDescription = {
   data: string;
@@ -286,6 +314,12 @@ const exampleDetailDescription: RecordDetailDescription[] = [
   },
   {
     data: 'Et vivamus lorem pulvinar nascetur non. Pulvinar a sed platea rhoncus ac mauris amet. Urna, sem pretium sit pretium urna, senectus vitae. Scelerisque fermentum, cursus felis dui suspendisse velit pharetra. Augue et duis cursus maecenas eget quam lectus. Accumsan vitae nascetur pharetra rhoncus praesent dictum risus suspendisse.',
+  },
+];
+
+const uploadDetailDescription: RecordDetailDescription[] = [
+  {
+    data: 'Go to the urls and download the csv files for each exchange. Uploading the files to the server will filter out any insignificant stocks and update the database with the new stocks.',
   },
 ];
 
@@ -327,16 +361,29 @@ const exampleRecordCards: RecordDetailCard[] = [
   },
 ];
 
-const exampleRecordDetail: RecordDetail = {
-  picture:
-    'https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
-  name: 'Ricardo Cooper',
-  tabs: recordDetailTabs['0'].data,
-  buttons: recordDetailButtons['0'],
-  chartInputs: {},
-  metrics: exampleDetailMetrics,
-  description: exampleDetailDescription,
-  cards: exampleRecordCards,
+const exampleRecordDetail: { [key: string]: RecordDetail } = {
+  Dashboard: {
+    picture:
+      'https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
+    name: 'Ricardo Cooper',
+    tabs: recordDetailTabs['0'].data,
+    buttons: recordDetailButtons['0'],
+    chartInputs: {},
+    metrics: exampleDetailMetrics,
+    description: exampleDetailDescription,
+    cards: exampleRecordCards,
+  },
+  Upload: {
+    picture:
+      'https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
+    name: 'Ricardo Cooper',
+    tabs: recordDetailTabs['0'].data,
+    buttons: recordDetailButtons['0'],
+    chartInputs: {},
+    metrics: uploadDetailMetric,
+    description: uploadDetailDescription,
+    cards: exampleRecordCards,
+  },
 };
 
 type RecordDetail = {
@@ -361,6 +408,7 @@ export class AppComponent implements OnInit, HtmlSanitizer {
   // left most nav bar section
   appViews: NavElements[] = [
     { name: 'Dashboard', svg: this.trustHtml(outline_home) },
+    { name: 'Upload', svg: this.trustHtml(outline_cloud_upload) },
     { name: 'Calendar', svg: this.trustHtml(outline_calendar) },
     { name: 'Teams', svg: this.trustHtml(outline_userGroup) },
     { name: 'Directory', svg: this.trustHtml(outline_searchCircle) },
@@ -375,11 +423,11 @@ export class AppComponent implements OnInit, HtmlSanitizer {
 
   navElementClasses = {
     normal: {
-      bar: 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md',
+      bar: 'cursor-pointer text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md',
       icon: 'text-gray-400 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6',
     },
     selected: {
-      bar: 'bg-gray-200 text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md',
+      bar: 'cursor-pointer bg-gray-200 text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md',
       icon: 'text-gray-500 mr-3 flex-shrink-0 h-6 w-6',
     },
   };
@@ -407,28 +455,41 @@ export class AppComponent implements OnInit, HtmlSanitizer {
     'hidden xl:order-first xl:flex xl:flex-col flex-shrink-0 w-96 border-r border-gray-200',
     'overflow-y-auto xl:order-first xl:flex xl:flex-col flex-shrink-0 w-96 border-r border-gray-200',
   ];
-  recordColumnUnhideButton = this.recordColumnClasses[0];
+  recordColumnUnhideButton = this.recordColumnClasses[1];
   toggleRecordColumnClass = classToggle(this.recordColumnClasses);
   toggleRecordColumn() {
     this.recordColumnUnhideButton = this.toggleRecordColumnClass();
   }
 
-  recordCards$ = of(exampleRecords).pipe(
+  /** cards section */
+  cardListener = new BehaviorSubject<string>(this.navSelected);
+  recordCards$ = this.cardListener.asObservable().pipe(
+    map((navName) => {
+      switch (navName) {
+        case 'Dashboard':
+          return exampleRecords;
+        case 'Upload':
+          return uploadCards;
+        default:
+          return exampleRecords;
+      }
+    }),
     map((data) => generateColumnOrganizer(data))
   );
 
   /** main detail section */
-  main$: Observable<RecordDetail> = of(exampleRecordDetail).pipe(
-    map((data) => this.sanitizeBridge(data))
-  );
+  mainListener = new BehaviorSubject<string>(this.navSelected);
+  main$ = this.mainListener
+    .asObservable()
+    .pipe(map((navName) => this.sanitizeBridge(exampleRecordDetail[navName])));
 
   tabSelected = 'Main';
 
   detailTabClasses = {
     normal:
-      'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm',
+      'cursor-pointer border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm',
     selected:
-      'border-pink-500 text-gray-900 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm',
+      'cursor-pointer border-pink-500 text-gray-900 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm',
   };
 
   constructor(private sanitizer: DomSanitizer) {}
@@ -461,6 +522,8 @@ export class AppComponent implements OnInit, HtmlSanitizer {
 
   navSelect({ name }: NavElements) {
     this.navSelected = name;
+    this.cardListener.next(name);
+    this.mainListener.next(name);
   }
 
   navBarFlexState = 1;
@@ -487,6 +550,7 @@ export class AppComponent implements OnInit, HtmlSanitizer {
       : this.detailTabClasses.normal;
   }
 
+  // TODO change to observerable so that change detection works and the classes update properly
   tabSelect(name: string) {
     this.tabSelected = name;
   }

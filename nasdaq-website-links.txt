@@ -1,0 +1,5 @@
+Just these two:
+
+https://www.nasdaq.com/market-activity/stocks/screener?exchange=NASDAQ
+
+https://www.nasdaq.com/market-activity/stocks/screener?exchange=NYSE
