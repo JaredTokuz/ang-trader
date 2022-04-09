@@ -1,0 +1,34 @@
+<!-- class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4" -->
+<!-- [class]="config?.classAttr" -->
+<div
+  class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4"
+>
+  <input
+    type="file"
+    class="hidden"
+    (change)="onFileSelected($event)"
+    #fileUpload
+  />
+
+  <button
+    *ngFor="let b of config?.buttons || []; let i = index"
+    type="button"
+    class="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
+    (click)="buttonClick(b)"
+  >
+    <!-- load display function -->
+    <svg
+      *ngIf="b.isLoading"
+      class="animate-spin h-5 w-5 mr-3 ..."
+      viewBox="0 0 24 24"
+    ></svg>
+    <!-- TODO error display icon -->
+    <!-- config Heroicon -->
+    <span
+      *ngIf="!b.isLoading"
+      class="-ml-1 mr-2 h-5 w-5 text-gray-400"
+      [innerHtml]="b.svgHTML"
+    ></span>
+    <span>{{ b.name }}</span>
+  </button>
+</div>

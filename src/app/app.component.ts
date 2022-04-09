@@ -22,6 +22,11 @@ import {
 } from './icons';
 import { HtmlSanitizer } from './string-html-sanitizer';
 import { svg_store } from './icons';
+import {
+  ButtonConfig,
+  ButtonConfiguration,
+  ButtonState,
+} from './button-area/button-area.component';
 interface NavElements {
   name: string;
   svg?: any;
@@ -255,26 +260,37 @@ const recordDetailTabs: { [key: string]: DetailTab } = {
 
 type basicfunction = () => any;
 
-type DetailButton = {
-  id: string;
-  name: string;
-  svg: string | SafeHtml;
-  action: basicfunction;
-};
+// type DetailButton = {
+//   id: string;
+//   name: string;
+//   svgHTML: string | SafeHtml;
+//   action: basicfunction;
+// };
 
-const recordDetailButtons: { [key: string]: DetailButton[] } = {
+const recordDetailButtons: { [key: string]: ButtonConfig[] } = {
   '0': [
     {
       id: '0',
       name: 'Message',
-      svg: svg_store['solid_mail'],
-      action: () => null,
+      svgHTML: svg_store['solid_mail'],
+      fn: () => null,
     },
     {
       id: '0',
       name: 'Call',
-      svg: svg_store['solid_phone'],
-      action: () => null,
+      svgHTML: svg_store['solid_phone'],
+      fn: () => null,
+    },
+  ],
+  upload: [
+    {
+      id: '1',
+      name: 'Upload Stock',
+      svgHTML: svg_store['outline_cloud_upload'],
+      fileConfig: {
+        urlPath: '/upload-stocks',
+        options: {},
+      },
     },
   ],
 };
@@ -361,6 +377,16 @@ const exampleRecordCards: RecordDetailCard[] = [
   },
 ];
 
+const uploadRecordCards: RecordDetailCard[] = [
+  // {
+  //   picture:
+  //     'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  //   name: 'Upload',
+  //   description: 'stock csv',
+  //   action: () => null,
+  // },
+];
+
 const exampleRecordDetail: { [key: string]: RecordDetail } = {
   Dashboard: {
     picture:
@@ -378,11 +404,11 @@ const exampleRecordDetail: { [key: string]: RecordDetail } = {
       'https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
     name: 'Ricardo Cooper',
     tabs: recordDetailTabs['0'].data,
-    buttons: recordDetailButtons['0'],
+    buttons: recordDetailButtons['upload'],
     chartInputs: {},
     metrics: uploadDetailMetric,
     description: uploadDetailDescription,
-    cards: exampleRecordCards,
+    cards: uploadRecordCards,
   },
 };
 
@@ -390,7 +416,18 @@ type RecordDetail = {
   picture: string;
   name: string;
   tabs: string[];
-  buttons: DetailButton[];
+  buttons: ButtonConfig[];
+  chartInputs: any;
+  metrics: Metric[];
+  description: RecordDetailDescription[];
+  cards: RecordDetailCard[];
+};
+
+type ProcessedRecordDetail = {
+  picture: string;
+  name: string;
+  tabs: string[];
+  buttons: (ButtonConfig & ButtonState)[];
   chartInputs: any;
   metrics: Metric[];
   description: RecordDetailDescription[];
@@ -495,17 +532,20 @@ export class AppComponent implements OnInit, HtmlSanitizer {
   constructor(private sanitizer: DomSanitizer) {}
   ngOnInit(): void {}
 
-  sanitizeBridge: (data: RecordDetail) => RecordDetail = (data) => {
+  sanitizeBridge: (data: RecordDetail) => ProcessedRecordDetail = (data) => {
     const { buttons, ...rest } = data;
     return {
       ...rest,
       buttons: data.buttons.map((button) => {
-        const { svg, ...rest } = button;
-        return {
+        const { svgHTML, ...rest } = button;
+        const b = {
           ...rest,
-          svg:
-            typeof button.svg === 'string' ? this.trustHtml(button.svg) : svg,
+          svgHTML:
+            typeof button.svgHTML === 'string'
+              ? this.trustHtml(button.svgHTML)
+              : svgHTML,
         };
+        return ButtonConfiguration(b);
       }),
     };
   };
