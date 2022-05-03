@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
 import { finalize } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface ButtonAreaConfig {
   buttons: (Partial<ButtonConfig> & ButtonState)[];
@@ -67,7 +68,6 @@ export class ButtonAreaComponent implements AfterViewInit {
     const file: File = files[0];
 
     if (file) {
-      const fileName = file.name;
       const formData = new FormData();
       formData.append('data', file);
 
@@ -80,7 +80,7 @@ export class ButtonAreaComponent implements AfterViewInit {
 
       const request$ = this.http
         .post(
-          this.insertedButton.fileConfig.urlPath,
+          environment.backend + this.insertedButton.fileConfig.urlPath,
           formData,
           this.insertedButton.fileConfig.options
         )

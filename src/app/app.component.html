@@ -1,10 +1,18 @@
 <div class="h-full flex">
   <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
   <div
-    [class]="
-      'fixed inset-0 flex z-40 lg:hidden transition duration-75 ease-in-out ' +
-      navBarTransition(navBarCanvasState)
-    "
+    [ngClass]="{
+      fixed: true,
+      'inset-0': true,
+      flex: true,
+      'z-40': true,
+      'lg:hidden': true,
+      transition: true,
+      'duration-75': true,
+      'ease-in-out': true,
+      '-translate-x-full': !navBarCanvasState,
+      'translate-x-0': navBarCanvasState
+    }"
     role="dialog"
     aria-modal="true"
   >
@@ -19,10 +27,17 @@
         To: "opacity-0"
     -->
     <div
-      [class]="
-        'fixed inset-0 bg-gray-600 bg-opacity-75 transition-opacity ease-linear duration-300 ' +
-        navBarTransition(navBarFlexState)
-      "
+      [ngClass]="{
+        fixed: true,
+        'inset-0': true,
+        'bg-gray-600': true,
+        'bg-opacity-75': true,
+        'transition-opacity': true,
+        'ease-linear': true,
+        'duration-300': true,
+        '-translate-x-full': !navBarCanvasState,
+        'translate-x-0': navBarCanvasState
+      }"
       aria-hidden="true"
     ></div>
 
@@ -37,10 +52,22 @@
         To: "-translate-x-full"
     -->
     <div
-      [class]="
-        'relative flex-1 flex flex-col max-w-xs w-full bg-white focus:outline-none transition ease-in-out duration-300 transform ' +
-        navBarTransition(navBarFlexState)
-      "
+      [ngClass]="{
+        relative: true,
+        'flex-1': true,
+        flex: true,
+        'flex-col': true,
+        'max-w-xs': true,
+        'w-full': true,
+        'bg-white': true,
+        'focus:outline-none': true,
+        transition: true,
+        'ease-in-out': true,
+        'duration-300': true,
+        transform: true,
+        '-translate-x-full': !navBarCanvasState,
+        'translate-x-0': navBarCanvasState
+      }"
     >
       <!--
         Close button, show/hide based on off-canvas menu state.
@@ -53,13 +80,21 @@
           To: "opacity-0"
       -->
       <div
-        [class]="
-          'absolute top-0 right-0 -mr-12 pt-2 transition ease-in-out duration-300 ' +
-          navBarCloseButton(navBarFlexState)
-        "
+        [ngClass]="{
+          absolute: true,
+          'top-0': true,
+          'right-0': true,
+          '-mr-12': true,
+          'pt-2': true,
+          transition: true,
+          'ease-in-out': true,
+          'duration-300': true,
+          'opacity-0': !navBarFlexState,
+          'opacity-100': navBarFlexState
+        }"
       >
         <button
-          (click)="setNavBarFlexState(0)"
+          (click)="toggleNavBarFlexState(false)"
           type="button"
           class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
         >
@@ -97,11 +132,34 @@
             <a
               *ngFor="let a of appViews"
               href="javascript:;"
-              [class]="isNavSelected(a, 'bar')"
+              [ngClass]="{
+                'cursor-pointer': true,
+                group: true,
+                flex: true,
+                'items-center': true,
+                'px-2': true,
+                'py-2': true,
+                'text-sm': true,
+                'font-medium': true,
+                'rounded-md': true,
+                'text-gray-600': !isNavSelected(a),
+                'hover:bg-gray-50': !isNavSelected(a),
+                'hover:text-gray-900': !isNavSelected(a),
+                'bg-gray-200': isNavSelected(a),
+                'text-gray-900': isNavSelected(a)
+              }"
               (click)="navSelect(a)"
             >
               <span
-                [class]="isNavSelected(a, 'icon')"
+                [ngClass]="{
+                  'mr-3': true,
+                  'flex-shrink-0': true,
+                  'h-6': true,
+                  'w-6': true,
+                  'text-gray-500': isNavSelected(a),
+                  'text-gray-400': !isNavSelected(a),
+                  'group-hover:text-gray-500': !isNavSelected(a)
+                }"
                 [innerHtml]="a.svg"
               ></span>
               {{ a.name }}
@@ -112,11 +170,34 @@
             <a
               *ngFor="let a of configViews"
               href="javascript:;"
-              [class]="isNavSelected(a, 'bar')"
+              [ngClass]="{
+                'cursor-pointer': true,
+                group: true,
+                flex: true,
+                'items-center': true,
+                'px-2': true,
+                'py-2': true,
+                'text-sm': true,
+                'font-medium': true,
+                'rounded-md': true,
+                'text-gray-600': !isNavSelected(a),
+                'hover:bg-gray-50': !isNavSelected(a),
+                'hover:text-gray-900': !isNavSelected(a),
+                'bg-gray-200': isNavSelected(a),
+                'text-gray-900': isNavSelected(a)
+              }"
               (click)="navSelect(a)"
             >
               <span
-                [class]="isNavSelected(a, 'icon')"
+                [ngClass]="{
+                  'mr-3': true,
+                  'flex-shrink-0': true,
+                  'h-6': true,
+                  'w-6': true,
+                  'text-gray-500': isNavSelected(a),
+                  'text-gray-400': !isNavSelected(a),
+                  'group-hover:text-gray-500': !isNavSelected(a)
+                }"
                 [innerHtml]="a.svg"
               ></span>
               {{ a.name }}
@@ -177,11 +258,34 @@
               <a
                 *ngFor="let a of appViews"
                 href="javascript:;"
-                [class]="isNavSelected(a, 'bar')"
+                [ngClass]="{
+                  'cursor-pointer': true,
+                  group: true,
+                  flex: true,
+                  'items-center': true,
+                  'px-2': true,
+                  'py-2': true,
+                  'text-sm': true,
+                  'font-medium': true,
+                  'rounded-md': true,
+                  'text-gray-600': !isNavSelected(a),
+                  'hover:bg-gray-50': !isNavSelected(a),
+                  'hover:text-gray-900': !isNavSelected(a),
+                  'bg-gray-200': isNavSelected(a),
+                  'text-gray-900': isNavSelected(a)
+                }"
                 (click)="navSelect(a)"
               >
                 <span
-                  [class]="isNavSelected(a, 'icon')"
+                  [ngClass]="{
+                    'mr-3': true,
+                    'flex-shrink-0': true,
+                    'h-6': true,
+                    'w-6': true,
+                    'text-gray-500': isNavSelected(a),
+                    'text-gray-400': !isNavSelected(a),
+                    'group-hover:text-gray-500': !isNavSelected(a)
+                  }"
                   [innerHtml]="a.svg"
                 ></span>
                 {{ a.name }}
@@ -192,11 +296,34 @@
               <a
                 *ngFor="let a of configViews"
                 href="javascript:;"
-                [class]="isNavSelected(a, 'bar')"
+                [ngClass]="{
+                  'cursor-pointer': true,
+                  group: true,
+                  flex: true,
+                  'items-center': true,
+                  'px-2': true,
+                  'py-2': true,
+                  'text-sm': true,
+                  'font-medium': true,
+                  'rounded-md': true,
+                  'text-gray-600': !isNavSelected(a),
+                  'hover:bg-gray-50': !isNavSelected(a),
+                  'hover:text-gray-900': !isNavSelected(a),
+                  'bg-gray-200': isNavSelected(a),
+                  'text-gray-900': isNavSelected(a)
+                }"
                 (click)="navSelect(a)"
               >
                 <span
-                  [class]="isNavSelected(a, 'icon')"
+                  [ngClass]="{
+                    'mr-3': true,
+                    'flex-shrink-0': true,
+                    'h-6': true,
+                    'w-6': true,
+                    'text-gray-500': isNavSelected(a),
+                    'text-gray-400': !isNavSelected(a),
+                    'group-hover:text-gray-500': !isNavSelected(a)
+                  }"
                   [innerHtml]="a.svg"
                 ></span>
                 {{ a.name }}
@@ -241,16 +368,10 @@
       <div
         class="flex items-center justify-between bg-gray-50 border-b border-gray-200 px-4 py-1.5"
       >
-        <div>
-          <img
-            class="h-8 w-auto"
-            src="https://tailwindui.com/img/logos/workflow-mark-pink-500.svg"
-            alt="Workflow"
-          />
-        </div>
+        <app-logo></app-logo>
         <div>
           <button
-            (click)="setNavBarFlexState(1)"
+            (click)="toggleNavBarFlexState(true)"
             type="button"
             class="-mr-3 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-pink-600"
           >
@@ -275,6 +396,7 @@
         </div>
       </div>
     </div>
+
     <div class="flex-1 relative z-0 flex overflow-hidden">
       <main
         class="flex-1 relative z-0 overflow-y-auto focus:outline-none xl:order-last"
@@ -309,176 +431,48 @@
 
         <article *ngIf="main$ | async as main">
           <!-- Profile header -->
-          <div>
-            <div>
-              <img
-                class="h-32 w-full object-cover lg:h-48"
-                src="https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
-                alt=""
-              />
-            </div>
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
-                <div class="flex">
-                  <img
-                    class="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
-                    [src]="main.picture"
-                    alt=""
-                  />
-                </div>
-                <div
-                  class="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1"
-                >
-                  <div class="sm:hidden 2xl:block mt-6 min-w-0 flex-1">
-                    <h1 class="text-2xl font-bold text-gray-900 truncate">
-                      {{ main.name }}
-                    </h1>
-                  </div>
-                  <app-button-area
-                    [config]="{ buttons: main.buttons }"
-                  ></app-button-area>
-                </div>
-              </div>
-              <div class="hidden sm:block 2xl:hidden mt-6 min-w-0 flex-1">
-                <h1 class="text-2xl font-bold text-gray-900 truncate">
-                  {{ main.name }}
-                </h1>
-              </div>
-            </div>
-          </div>
+          <app-article-header
+            [name]="main.name"
+            [picture]="main.picture"
+            [buttons]="{ buttons: main.buttons }"
+          ></app-article-header>
 
           <!-- Tabs -->
-          <div class="mt-6 sm:mt-2 2xl:mt-5">
-            <div class="border-b border-gray-200">
-              <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                <nav class="-mb-px flex space-x-8" aria-label="Tabs">
-                  <!-- Current: "border-pink-500 text-gray-900", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->
-                  <a
-                    *ngFor="let t of main.tabs"
-                    href="javascript:;"
-                    (click)="tabSelect(t)"
-                    [class]="isTabSelected(t)"
-                    aria-current="page"
-                  >
-                    {{ t }}
-                  </a>
-                </nav>
-              </div>
-            </div>
-          </div>
+          <app-tabs [tabs]="main.tabs"></app-tabs>
 
           <app-trader-chart-component
             *ngIf="cardListener.getValue() == 'Dashboard'"
           ></app-trader-chart-component>
 
-          <div class="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-              <!-- Metrics List -->
-              <div *ngFor="let m of main.metrics" class="sm:col-span-1">
-                <dt class="text-sm font-medium text-gray-500">{{ m.key }}</dt>
-                <dd class="mt-1 text-sm text-gray-900">{{ m.val }}</dd>
-              </div>
-              <div class="sm:col-span-2">
-                <dt class="text-sm font-medium text-gray-500">Summary</dt>
-                <dd class="mt-1 max-w-prose text-sm text-gray-900 space-y-5">
-                  <!-- Description list -->
-                  <p *ngFor="let d of main.description">{{ d.data }}</p>
-                </dd>
-              </div>
-            </dl>
-          </div>
+          <!-- Metrics List -->
+          <app-simple-metrics [metrics]="main.metrics"></app-simple-metrics>
+
+          <!-- Description list -->
+          <app-description-block
+            [description]="main.description"
+          ></app-description-block>
 
           <!-- Card list -->
-          <div class="mt-8 max-w-5xl mx-auto px-4 pb-12 sm:px-6 lg:px-8">
-            <h2 class="text-sm font-medium text-gray-500">Misc.</h2>
-            <div class="mt-1 grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div
-                *ngFor="let d of main.cards"
-                (click)="d.action()"
-                class="cursor-pointer relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-pink-500"
-              >
-                <div class="flex-shrink-0">
-                  <img
-                    class="h-10 w-10 rounded-full"
-                    [src]="d.picture"
-                    alt=""
-                  />
-                </div>
-                <div class="flex-1 min-w-0">
-                  <a href="javascript:;" class="focus:outline-none">
-                    <span class="absolute inset-0" aria-hidden="true"></span>
-                    <p class="text-sm font-medium text-gray-900">
-                      {{ d.name }}
-                    </p>
-                    <p class="text-sm text-gray-500 truncate">
-                      {{ d.description }}
-                    </p>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+          <app-actionable-cards [cards]="main.cards"></app-actionable-cards>
         </article>
       </main>
-      <aside [class]="recordColumnUnhideButton">
-        <div class="px-6 pt-6 pb-4">
-          <h2 class="text-lg font-medium text-gray-900">{{ navSelected }}</h2>
-          <p class="mt-1 text-sm text-gray-600">
-            {{ recordColumnDescription }}
-          </p>
-          <div class="mt-6 flex space-x-4">
-            <div class="flex-1 min-w-0">
-              <label for="search" class="sr-only">Search</label>
-              <div class="relative rounded-md shadow-sm">
-                <div
-                  class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-                >
-                  <!-- Heroicon name: solid/search -->
-                  <svg
-                    class="h-5 w-5 text-gray-400"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </div>
-                <input
-                  type="search"
-                  name="search"
-                  id="search"
-                  class="focus:ring-pink-500 focus:border-pink-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
-                  placeholder="Search"
-                />
-              </div>
-            </div>
-            <button
-              type="submit"
-              class="inline-flex justify-center px-3.5 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
-            >
-              <!-- Heroicon name: solid/filter -->
-              <svg
-                class="h-5 w-5 text-gray-400"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-              <span class="sr-only">Search</span>
-            </button>
-          </div>
-        </div>
+      <aside
+        [ngClass]="{
+          hidden: !recordColumnStatus,
+          'overflow-y-auto': recordColumnStatus,
+          'xl:order-first': true,
+          'xl:flex': true,
+          'xl:flex-col': true,
+          'flex-shrink-0': true,
+          'w-96': true,
+          'border-r': true,
+          'border-gray-200': true
+        }"
+      >
+        <app-search-box
+          [navSelected]="navSelected"
+          [recordColumnDescription]="recordColumnDescription"
+        ></app-search-box>
         <!-- Directory list -->
         <nav
           *ngIf="recordCards$ | async as recordCard"

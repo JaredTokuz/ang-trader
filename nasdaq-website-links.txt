@@ -1,5 +1,7 @@
-Just these two:
+EOD for symbols:
 
-https://www.nasdaq.com/market-activity/stocks/screener?exchange=NASDAQ
+https://www.eoddata.com/download.aspx
 
-https://www.nasdaq.com/market-activity/stocks/screener?exchange=NYSE
+Later when i can build a static file server using S3 bucket:
+
+https://eodhistoricaldata.com/financial-apis-blog/5000-company-logos/
