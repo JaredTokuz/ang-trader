@@ -6,37 +6,9 @@ import {
   Input,
   ViewChild,
 } from '@angular/core';
-import { SafeHtml } from '@angular/platform-browser';
 import { finalize } from 'rxjs';
 import { environment } from '../../environments/environment';
-
-export interface ButtonAreaConfig {
-  buttons: (Partial<ButtonConfig> & ButtonState)[];
-}
-
-export const ButtonConfiguration = (
-  config: ButtonConfig
-): ButtonConfig & ButtonState => {
-  return {
-    ...config,
-    isLoading: false,
-  };
-};
-
-export interface ButtonConfig {
-  id: string;
-  name: string;
-  svgHTML?: SafeHtml;
-  fileConfig?: {
-    urlPath: string;
-    options: any; // check the http options type
-  };
-  fn?: Function;
-}
-
-export interface ButtonState {
-  isLoading: boolean;
-}
+import { ButtonAreaConfig, ButtonConfig, ButtonState } from '../app.interfaces';
 
 @Component({
   selector: 'app-button-area',

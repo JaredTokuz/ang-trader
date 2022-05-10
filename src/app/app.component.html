@@ -1,15 +1,8 @@
 <div class="h-full flex">
   <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
   <div
+    class="fixed inset-0 flex z-40 lg:hidden transition duration-75 ease-in-out"
     [ngClass]="{
-      fixed: true,
-      'inset-0': true,
-      flex: true,
-      'z-40': true,
-      'lg:hidden': true,
-      transition: true,
-      'duration-75': true,
-      'ease-in-out': true,
       '-translate-x-full': !navBarCanvasState,
       'translate-x-0': navBarCanvasState
     }"
@@ -27,14 +20,8 @@
         To: "opacity-0"
     -->
     <div
+      class="fixed inset-0 bg-gray-600 bg-opacity-75 transition-opacity ease-linear duration-300"
       [ngClass]="{
-        fixed: true,
-        'inset-0': true,
-        'bg-gray-600': true,
-        'bg-opacity-75': true,
-        'transition-opacity': true,
-        'ease-linear': true,
-        'duration-300': true,
         '-translate-x-full': !navBarCanvasState,
         'translate-x-0': navBarCanvasState
       }"
@@ -52,19 +39,8 @@
         To: "-translate-x-full"
     -->
     <div
+      class="relative flex-1 flex flex-col max-w-xs w-full bg-white focus:outline-none transition ease-in-out duration-300 transform"
       [ngClass]="{
-        relative: true,
-        'flex-1': true,
-        flex: true,
-        'flex-col': true,
-        'max-w-xs': true,
-        'w-full': true,
-        'bg-white': true,
-        'focus:outline-none': true,
-        transition: true,
-        'ease-in-out': true,
-        'duration-300': true,
-        transform: true,
         '-translate-x-full': !navBarCanvasState,
         'translate-x-0': navBarCanvasState
       }"
@@ -80,15 +56,8 @@
           To: "opacity-0"
       -->
       <div
+        class="absolute top-0 right-0 -mr-12 pt-2 transition ease-in-out duration-300"
         [ngClass]="{
-          absolute: true,
-          'top-0': true,
-          'right-0': true,
-          '-mr-12': true,
-          'pt-2': true,
-          transition: true,
-          'ease-in-out': true,
-          'duration-300': true,
           'opacity-0': !navBarFlexState,
           'opacity-100': navBarFlexState
         }"
@@ -120,89 +89,12 @@
 
       <div class="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
         <div class="flex-shrink-0 flex items-center px-4">
-          <img
-            class="h-8 w-auto"
-            src="https://tailwindui.com/img/logos/workflow-logo-pink-500-mark-gray-900-text.svg"
-            alt="Workflow"
-          />
+          <app-logo></app-logo>
         </div>
-        <nav aria-label="Sidebar" class="mt-5">
-          <div class="px-2 space-y-1">
-            <!-- Current: "bg-gray-100 text-gray-900", Default: "text-gray-600 hover:bg-gray-50 hover:text-gray-900" -->
-            <a
-              *ngFor="let a of appViews"
-              href="javascript:;"
-              [ngClass]="{
-                'cursor-pointer': true,
-                group: true,
-                flex: true,
-                'items-center': true,
-                'px-2': true,
-                'py-2': true,
-                'text-sm': true,
-                'font-medium': true,
-                'rounded-md': true,
-                'text-gray-600': !isNavSelected(a),
-                'hover:bg-gray-50': !isNavSelected(a),
-                'hover:text-gray-900': !isNavSelected(a),
-                'bg-gray-200': isNavSelected(a),
-                'text-gray-900': isNavSelected(a)
-              }"
-              (click)="navSelect(a)"
-            >
-              <span
-                [ngClass]="{
-                  'mr-3': true,
-                  'flex-shrink-0': true,
-                  'h-6': true,
-                  'w-6': true,
-                  'text-gray-500': isNavSelected(a),
-                  'text-gray-400': !isNavSelected(a),
-                  'group-hover:text-gray-500': !isNavSelected(a)
-                }"
-                [innerHtml]="a.svg"
-              ></span>
-              {{ a.name }}
-            </a>
-          </div>
+        <nav aria-label="Sidebar" class="mt-5 flex-1">
+          <app-nav-items [navItems]="appViews"></app-nav-items>
           <hr class="border-t border-gray-200 my-5" aria-hidden="true" />
-          <div class="px-2 space-y-1">
-            <a
-              *ngFor="let a of configViews"
-              href="javascript:;"
-              [ngClass]="{
-                'cursor-pointer': true,
-                group: true,
-                flex: true,
-                'items-center': true,
-                'px-2': true,
-                'py-2': true,
-                'text-sm': true,
-                'font-medium': true,
-                'rounded-md': true,
-                'text-gray-600': !isNavSelected(a),
-                'hover:bg-gray-50': !isNavSelected(a),
-                'hover:text-gray-900': !isNavSelected(a),
-                'bg-gray-200': isNavSelected(a),
-                'text-gray-900': isNavSelected(a)
-              }"
-              (click)="navSelect(a)"
-            >
-              <span
-                [ngClass]="{
-                  'mr-3': true,
-                  'flex-shrink-0': true,
-                  'h-6': true,
-                  'w-6': true,
-                  'text-gray-500': isNavSelected(a),
-                  'text-gray-400': !isNavSelected(a),
-                  'group-hover:text-gray-500': !isNavSelected(a)
-                }"
-                [innerHtml]="a.svg"
-              ></span>
-              {{ a.name }}
-            </a>
-          </div>
+          <app-nav-items [navItems]="configViews"></app-nav-items>
         </nav>
       </div>
       <div class="flex-shrink-0 flex border-t border-gray-200 p-4">
@@ -246,89 +138,12 @@
       >
         <div class="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
           <div class="flex items-center flex-shrink-0 px-4">
-            <img
-              class="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/workflow-logo-pink-500-mark-gray-900-text.svg"
-              alt="Workflow"
-            />
+            <app-logo></app-logo>
           </div>
           <nav class="mt-5 flex-1" aria-label="Sidebar">
-            <div class="px-2 space-y-1">
-              <!-- Current: "bg-gray-200 text-gray-900", Default: "text-gray-600 hover:bg-gray-50 hover:text-gray-900" -->
-              <a
-                *ngFor="let a of appViews"
-                href="javascript:;"
-                [ngClass]="{
-                  'cursor-pointer': true,
-                  group: true,
-                  flex: true,
-                  'items-center': true,
-                  'px-2': true,
-                  'py-2': true,
-                  'text-sm': true,
-                  'font-medium': true,
-                  'rounded-md': true,
-                  'text-gray-600': !isNavSelected(a),
-                  'hover:bg-gray-50': !isNavSelected(a),
-                  'hover:text-gray-900': !isNavSelected(a),
-                  'bg-gray-200': isNavSelected(a),
-                  'text-gray-900': isNavSelected(a)
-                }"
-                (click)="navSelect(a)"
-              >
-                <span
-                  [ngClass]="{
-                    'mr-3': true,
-                    'flex-shrink-0': true,
-                    'h-6': true,
-                    'w-6': true,
-                    'text-gray-500': isNavSelected(a),
-                    'text-gray-400': !isNavSelected(a),
-                    'group-hover:text-gray-500': !isNavSelected(a)
-                  }"
-                  [innerHtml]="a.svg"
-                ></span>
-                {{ a.name }}
-              </a>
-            </div>
+            <app-nav-items [navItems]="appViews"></app-nav-items>
             <hr class="border-t border-gray-200 my-5" aria-hidden="true" />
-            <div class="flex-1 px-2 space-y-1">
-              <a
-                *ngFor="let a of configViews"
-                href="javascript:;"
-                [ngClass]="{
-                  'cursor-pointer': true,
-                  group: true,
-                  flex: true,
-                  'items-center': true,
-                  'px-2': true,
-                  'py-2': true,
-                  'text-sm': true,
-                  'font-medium': true,
-                  'rounded-md': true,
-                  'text-gray-600': !isNavSelected(a),
-                  'hover:bg-gray-50': !isNavSelected(a),
-                  'hover:text-gray-900': !isNavSelected(a),
-                  'bg-gray-200': isNavSelected(a),
-                  'text-gray-900': isNavSelected(a)
-                }"
-                (click)="navSelect(a)"
-              >
-                <span
-                  [ngClass]="{
-                    'mr-3': true,
-                    'flex-shrink-0': true,
-                    'h-6': true,
-                    'w-6': true,
-                    'text-gray-500': isNavSelected(a),
-                    'text-gray-400': !isNavSelected(a),
-                    'group-hover:text-gray-500': !isNavSelected(a)
-                  }"
-                  [innerHtml]="a.svg"
-                ></span>
-                {{ a.name }}
-              </a>
-            </div>
+            <app-nav-items [navItems]="configViews"></app-nav-items>
           </nav>
         </div>
         <div class="flex-shrink-0 flex border-t border-gray-200 p-4">
@@ -368,7 +183,9 @@
       <div
         class="flex items-center justify-between bg-gray-50 border-b border-gray-200 px-4 py-1.5"
       >
-        <app-logo></app-logo>
+        <div>
+          <app-logo></app-logo>
+        </div>
         <div>
           <button
             (click)="toggleNavBarFlexState(true)"
@@ -429,8 +246,13 @@
           </a>
         </nav>
 
-        <article *ngIf="main$ | async as main">
+        <article *ngIf="mainStore.main$ | async as main">
           <!-- Profile header -->
+
+          <app-search-popout-form
+            *ngIf="mainStore.searchPopOut$ | async"
+          ></app-search-popout-form>
+
           <app-article-header
             [name]="main.name"
             [picture]="main.picture"
@@ -441,7 +263,7 @@
           <app-tabs [tabs]="main.tabs"></app-tabs>
 
           <app-trader-chart-component
-            *ngIf="cardListener.getValue() == 'Dashboard'"
+            *ngIf="mainStore.getNavSelected() == 'Dashboard'"
           ></app-trader-chart-component>
 
           <!-- Metrics List -->
@@ -457,67 +279,20 @@
         </article>
       </main>
       <aside
+        class="xl:order-first xl:flex xl:flex-col flex-shrink-0 w-96 border-r border-gray-200"
         [ngClass]="{
           hidden: !recordColumnStatus,
-          'overflow-y-auto': recordColumnStatus,
-          'xl:order-first': true,
-          'xl:flex': true,
-          'xl:flex-col': true,
-          'flex-shrink-0': true,
-          'w-96': true,
-          'border-r': true,
-          'border-gray-200': true
+          'overflow-y-auto': recordColumnStatus
         }"
       >
         <app-search-box
-          [navSelected]="navSelected"
+          [navSelected]="mainStore.getNavSelected()"
           [recordColumnDescription]="recordColumnDescription"
         ></app-search-box>
         <!-- Directory list -->
-        <nav
-          *ngIf="recordCards$ | async as recordCard"
-          class="flex-1 min-h-0 overflow-y-auto"
-          aria-label="Directory"
-        >
-          <div *ngFor="let entry of recordCard" class="relative">
-            <div
-              class="z-10 sticky top-0 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500"
-            >
-              <h3>{{ entry.tier }}</h3>
-            </div>
-            <ul role="list" class="relative z-0 divide-y divide-gray-200">
-              <li *ngFor="let card of entry.data">
-                <div
-                  class="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-pink-500"
-                >
-                  <div class="flex-shrink-0">
-                    <img
-                      class="h-10 w-10 rounded-full"
-                      [src]="card.picture"
-                      alt=""
-                    />
-                  </div>
-                  <div class="flex-1 min-w-0">
-                    <a
-                      (click)="('')"
-                      href="javascript:;"
-                      class="cursor-pointer focus:outline-none"
-                    >
-                      <!-- Extend touch target to entire panel -->
-                      <span class="absolute inset-0" aria-hidden="true"></span>
-                      <p class="text-sm font-medium text-gray-900">
-                        {{ card.name }}
-                      </p>
-                      <p class="text-sm text-gray-500 truncate">
-                        {{ card.description }}
-                      </p>
-                    </a>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </nav>
+        <app-grouped-card-directory
+          [recordCards$]="mainStore.recordCards$"
+        ></app-grouped-card-directory>
       </aside>
     </div>
   </div>

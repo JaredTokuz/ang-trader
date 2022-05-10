@@ -1,9 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
-export type Metric = {
-  key: string;
-  val: string | number;
-};
+import { Metric } from '../app.interfaces';
 
 @Component({
   selector: 'app-simple-metrics',

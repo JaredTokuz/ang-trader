@@ -7,20 +7,11 @@
           *ngFor="let t of tabs"
           href="javascript:;"
           (click)="tabSelect(t)"
+          class="cursor-pointer whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
           [ngClass]="{
-            'cursor-pointer': true,
-            'whitespace-nowrap': true,
-            'py-4': true,
-            'px-1': true,
-            'border-b-2': true,
-            'font-medium': true,
-            'text-sm': true,
-            'border-pink-500': isTabSelected(t),
-            'text-gray-900': isTabSelected(t),
-            'border-transparent': !isTabSelected(t),
-            'text-gray-500': !isTabSelected(t),
-            'hover:text-gray-700': !isTabSelected(t),
-            'hover:border-gray-300': !isTabSelected(t)
+            'border-pink-500 text-gray-900': isTabSelected(t),
+            'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300':
+              !isTabSelected(t)
           }"
           aria-current="page"
         >

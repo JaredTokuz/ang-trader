@@ -1,13 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
-type basicfunction = () => any;
-
-export type RecordDetailCard = {
-  picture: string | any;
-  name: string;
-  description: string;
-  action: basicfunction;
-};
+import { RecordDetailCard } from '../app.interfaces';
 
 @Component({
   selector: 'app-actionable-cards',

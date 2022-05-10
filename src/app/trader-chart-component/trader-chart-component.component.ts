@@ -27,7 +27,6 @@ export class TraderChartComponentComponent implements OnInit, AfterViewInit {
   }
 
   renderGraph() {
-    console.log('started render');
     function fmtUSD(val: number, dec: number) {
       return '$' + val.toFixed(dec).replace(/\d(?=(\d{3})+(?:\.|$))/g, '$&,');
     }
@@ -487,6 +486,7 @@ export class TraderChartComponentComponent implements OnInit, AfterViewInit {
       axes: [
         {},
         {
+          size: 55,
           values: (u: any, vals: any) => vals.map((v: any) => fmtUSD(v, 0)),
         },
         {

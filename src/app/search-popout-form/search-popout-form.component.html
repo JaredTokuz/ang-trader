@@ -1,0 +1,231 @@
+<div
+  class="absolute z-50 transform translate-x-4 mt-3 px-2 w-screen max-w-lg sm:px-0"
+>
+  <div
+    class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden"
+  >
+    <div class="relative grid gap-6 bg-white px-2.5 py-3">
+      <!-- form thing inside -->
+      <div class="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
+        <div class="md:grid md:grid-cols-2 md:gap-6">
+          <div class="md:col-span-2">
+            <label
+              id="listbox-label"
+              class="block text-sm font-medium text-gray-700"
+            >
+              Assigned to
+            </label>
+            <div class="mt-1 relative">
+              <button
+                type="button"
+                class="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                aria-haspopup="listbox"
+                aria-expanded="true"
+                aria-labelledby="listbox-label"
+              >
+                <span class="block truncate"> Tom Cook </span>
+                <span
+                  class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none"
+                >
+                  <!-- Heroicon name: solid/selector -->
+                  <svg
+                    class="h-5 w-5 text-gray-400"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+
+              <!-- TODO
+              Select popover, show/hide based on select state.
+        
+              Entering: ""
+                From: ""
+                To: ""
+              Leaving: "transition ease-in duration-100"
+                From: "opacity-100"
+                To: "opacity-0"
+            -->
+              <ul
+                *ngIf="false"
+                class="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
+                tabindex="-1"
+                role="listbox"
+                aria-labelledby="listbox-label"
+                aria-activedescendant="listbox-option-3"
+              >
+                <!-- TODO
+                Select option, manage highlight styles based on mouseenter/mouseleave and keyboard navigation.
+        
+                Highlighted: "text-white bg-indigo-600", Not Highlighted: "text-gray-900"
+              -->
+                <li
+                  class="text-gray-900 cursor-default select-none relative py-2 pl-8 pr-4"
+                  id="listbox-option-0"
+                  role="option"
+                >
+                  <!-- Selected: "font-semibold", Not Selected: "font-normal" -->
+                  <span class="font-normal block truncate"> Wade Cooper </span>
+
+                  <!-- TODO
+                  Checkmark, only display for selected option.
+        
+                  Highlighted: "text-white", Not Highlighted: "text-indigo-600"
+                -->
+                  <span
+                    class="text-indigo-600 absolute inset-y-0 left-0 flex items-center pl-1.5"
+                  >
+                    <!-- Heroicon name: solid/check -->
+                    <svg
+                      class="h-5 w-5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </li>
+
+                <!-- TODO More items... -->
+              </ul>
+            </div>
+          </div>
+          <div class="mt-5 md:mt-0 md:col-span-2">
+            <form class="space-y-6" action="#" method="POST">
+              <fieldset>
+                <legend class="text-base font-medium text-gray-900">
+                  By Email
+                </legend>
+                <div class="mt-4 space-y-4">
+                  <div class="flex items-start">
+                    <div class="h-5 flex items-center">
+                      <input
+                        id="comments"
+                        name="comments"
+                        type="checkbox"
+                        class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                      />
+                    </div>
+                    <div class="ml-3 text-sm">
+                      <label for="comments" class="font-medium text-gray-700"
+                        >Comments</label
+                      >
+                      <p class="text-gray-500">
+                        Get notified when someones posts a comment on a posting.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <div class="flex items-center h-5">
+                      <input
+                        id="candidates"
+                        name="candidates"
+                        type="checkbox"
+                        class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                      />
+                    </div>
+                    <div class="ml-3 text-sm">
+                      <label for="candidates" class="font-medium text-gray-700"
+                        >Candidates</label
+                      >
+                      <p class="text-gray-500">
+                        Get notified when a candidate applies for a job.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <div class="flex items-center h-5">
+                      <input
+                        id="offers"
+                        name="offers"
+                        type="checkbox"
+                        class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                      />
+                    </div>
+                    <div class="ml-3 text-sm">
+                      <label for="offers" class="font-medium text-gray-700"
+                        >Offers</label
+                      >
+                      <p class="text-gray-500">
+                        Get notified when a candidate accepts or rejects an
+                        offer.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+              <fieldset>
+                <div>
+                  <legend class="text-base font-medium text-gray-900">
+                    Push Notifications
+                  </legend>
+                  <p class="text-sm text-gray-500">
+                    These are delivered via SMS to your mobile phone.
+                  </p>
+                </div>
+                <div class="mt-4 space-y-4">
+                  <div class="flex items-center">
+                    <input
+                      id="push-everything"
+                      name="push-notifications"
+                      type="radio"
+                      class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                    />
+                    <label
+                      for="push-everything"
+                      class="ml-3 block text-sm font-medium text-gray-700"
+                    >
+                      Everything
+                    </label>
+                  </div>
+                  <div class="flex items-center">
+                    <input
+                      id="push-email"
+                      name="push-notifications"
+                      type="radio"
+                      class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                    />
+                    <label
+                      for="push-email"
+                      class="ml-3 block text-sm font-medium text-gray-700"
+                    >
+                      Same as email
+                    </label>
+                  </div>
+                  <div class="flex items-center">
+                    <input
+                      id="push-nothing"
+                      name="push-notifications"
+                      type="radio"
+                      class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+                    />
+                    <label
+                      for="push-nothing"
+                      class="ml-3 block text-sm font-medium text-gray-700"
+                    >
+                      No push notifications
+                    </label>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -11,6 +11,9 @@ import { LogoComponent } from './logo/logo.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { ArticleHeaderComponent } from './article-header/article-header.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
+import { NavItemsComponent } from './nav-items/nav-items.component';
+import { GroupedCardDirectoryComponent } from './grouped-card-directory/grouped-card-directory.component';
+import { SearchPopoutFormComponent } from './search-popout-form/search-popout-form.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,9 @@ import { SearchBoxComponent } from './search-box/search-box.component';
     TabsComponent,
     ArticleHeaderComponent,
     SearchBoxComponent,
+    NavItemsComponent,
+    GroupedCardDirectoryComponent,
+    SearchPopoutFormComponent,
   ],
   imports: [BrowserModule, HttpClientModule],
   providers: [],

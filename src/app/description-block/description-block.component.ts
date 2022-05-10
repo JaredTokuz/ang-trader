@@ -1,9 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
-/** could evolve */
-export type RecordDetailDescription = {
-  data: string;
-};
+import { RecordDetailDescription } from '../app.interfaces';
 
 @Component({
   selector: 'app-description-block',

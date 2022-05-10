@@ -1,0 +1,23 @@
+<div class="px-2 space-y-1">
+  <!-- Current: "bg-gray-100 text-gray-900", Default: "text-gray-600 hover:bg-gray-50 hover:text-gray-900" -->
+  <a
+    *ngFor="let a of navItems"
+    href="javascript:;"
+    class="cursor-pointer group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+    [ngClass]="{
+      'text-gray-600 hover:bg-gray-50 hover:text-gray-900': !isNavSelected(a),
+      'bg-gray-200 text-gray-900': isNavSelected(a)
+    }"
+    (click)="navSelect(a)"
+  >
+    <span
+      class="mr-3 flex-shrink-0 h-6 w-6"
+      [ngClass]="{
+        'text-gray-500': isNavSelected(a),
+        'text-gray-400 group-hover:text-gray-500': !isNavSelected(a)
+      }"
+      [innerHtml]="a.svg"
+    ></span>
+    {{ a.name }}
+  </a>
+</div>

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MainStore } from '../main.store';
 
 @Component({
   selector: 'app-search-box',
@@ -8,7 +9,11 @@ import { Component, Input, OnInit } from '@angular/core';
 export class SearchBoxComponent implements OnInit {
   @Input() navSelected: string;
   @Input() recordColumnDescription: string;
-  constructor() {}
+  constructor(public mainStore: MainStore) {}
 
   ngOnInit(): void {}
+
+  togglePopout() {
+    this.mainStore.setSearchPopOut(!this.mainStore.getSearchPopOutState());
+  }
 }

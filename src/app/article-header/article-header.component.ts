@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ButtonAreaConfig } from '../button-area/button-area.component';
+import { ButtonAreaConfig } from '../app.interfaces';
 
 @Component({
   selector: 'app-article-header',
